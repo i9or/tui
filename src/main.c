@@ -165,25 +165,35 @@ void drawCursor(void) {
 
 	glColor3f(0.1f, 0.1f, 0.1f);
 	glVertex2i(gMousePosition.x, gMousePosition.y);
-	glVertex2i(gMousePosition.x + 14, gMousePosition.y + 14);
-	glVertex2i(gMousePosition.x + 8, gMousePosition.y + 14);
-	glVertex2i(gMousePosition.x + 12, gMousePosition.y + 21);
-	glVertex2i(gMousePosition.x + 8, gMousePosition.y + 23);
-	glVertex2i(gMousePosition.x + 4, gMousePosition.y + 15);
-	glVertex2i(gMousePosition.x, gMousePosition.y + 19);
-
+	glVertex2i(gMousePosition.x + 11, gMousePosition.y + 11);
+	glVertex2i(gMousePosition.x + 11, gMousePosition.y + 12);
+	glVertex2i(gMousePosition.x + 7, gMousePosition.y + 12);
+	glVertex2i(gMousePosition.x + 9, gMousePosition.y + 17);
+	glVertex2i(gMousePosition.x + 8, gMousePosition.y + 18);
+	glVertex2i(gMousePosition.x + 7, gMousePosition.y + 18);
+	glVertex2i(gMousePosition.x + 6, gMousePosition.y + 17);
+	glVertex2i(gMousePosition.x + 5, gMousePosition.y + 14);
+	glVertex2i(gMousePosition.x + 4, gMousePosition.y + 13);
+	glVertex2i(gMousePosition.x + 1, gMousePosition.y + 16);
+	glVertex2i(gMousePosition.x, gMousePosition.y + 16);
+	
 	glEnd();
 
   glBegin(GL_LINE_LOOP);
 
 	glColor3f(1.f, 1.f, 1.f);
 	glVertex2i(gMousePosition.x, gMousePosition.y);
-	glVertex2i(gMousePosition.x + 14, gMousePosition.y + 14);
-	glVertex2i(gMousePosition.x + 8, gMousePosition.y + 14);
-	glVertex2i(gMousePosition.x + 12, gMousePosition.y + 21);
-	glVertex2i(gMousePosition.x + 8, gMousePosition.y + 23);
-	glVertex2i(gMousePosition.x + 4, gMousePosition.y + 15);
-	glVertex2i(gMousePosition.x, gMousePosition.y + 19);
+	glVertex2i(gMousePosition.x + 11, gMousePosition.y + 11);
+	glVertex2i(gMousePosition.x + 11, gMousePosition.y + 12);
+	glVertex2i(gMousePosition.x + 7, gMousePosition.y + 12);
+	glVertex2i(gMousePosition.x + 9, gMousePosition.y + 17);
+	glVertex2i(gMousePosition.x + 8, gMousePosition.y + 18);
+	glVertex2i(gMousePosition.x + 7, gMousePosition.y + 18);
+	glVertex2i(gMousePosition.x + 6, gMousePosition.y + 17);
+	glVertex2i(gMousePosition.x + 5, gMousePosition.y + 14);
+	glVertex2i(gMousePosition.x + 4, gMousePosition.y + 13);
+	glVertex2i(gMousePosition.x + 1, gMousePosition.y + 16);
+	glVertex2i(gMousePosition.x, gMousePosition.y + 16);
 
 	glEnd();
 }
