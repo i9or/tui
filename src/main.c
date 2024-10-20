@@ -25,7 +25,45 @@ void keyUpHandler(unsigned char, int, int);
 void mouseEntryHandler(int);
 void drawCursor(void);
 
+void setOrthographic(int, int);
+void setPerspective(int, int);
+
 static void setViewport(int, int);
+
+static float gSpin = 0.f;
+
+#define V 0.5f
+
+static float vertices[] = {
+	 V,  V,  V,
+	 V, -V,  V,
+	-V, -V,  V,
+	-V,  V,  V,
+	 V,  V, -V,
+	 V, -V, -V,
+	-V, -V, -V,
+	-V,  V, -V
+};
+
+static float colors[] = {
+	0.f, 0.f, 0.f,
+	0.f, 0.f, 1.f,
+	0.f, 1.f, 0.f,
+	0.f, 1.f, 1.f,
+	1.f, 0.f, 0.f,
+	1.f, 0.f, 1.f,
+	1.f, 1.f, 0.f,
+	1.f, 1.f, 1.f
+};
+
+static unsigned int indices[] = {
+	4, 5, 6, 7,
+	1, 2, 6, 5,
+	0, 1, 5, 4,
+	0, 3, 2, 1,
+	0, 4, 7, 3,
+	2, 3, 7, 6
+};
 
 int main(int argc, char** argv) {
 	printf("TinyUI Demo\n");
@@ -84,6 +122,23 @@ void displayHandler(void) {
 	int windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
 	setViewport(windowWidth, windowHeight);
 
+	setPerspective(windowWidth, windowHeight);
+
+	glPushMatrix();
+	glRotatef(gSpin, 1.f, 2.f, 3.f);
+
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	glColorPointer(3, GL_FLOAT, 0, colors);
+	glVertexPointer(3, GL_FLOAT, 0, vertices);
+
+	glDrawElements(GL_QUADS, 24, GL_UNSIGNED_INT, indices);
+
+	glPopMatrix();
+	
+	setOrthographic(windowWidth, windowHeight);
+
 	tuiBegin();
 
 	if (tuiButton("Click me!", 10, 10, 100, 30)) {
@@ -123,19 +178,17 @@ void reshapeHandler(int width, int height) {
 }
 
 void idleHandler(void) {
+	gSpin = gSpin + 2.f;
+
+	if (gSpin > 360.f) {
+		gSpin = 0.f;
+	}
+
 	glutPostRedisplay();
 }
 
 void setViewport(int width, int height) {
 	glViewport(0, 0, width, height);
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(0.0, (double)width, (double)height, 0.0, -1.0, 1.0);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glTranslatef(0.375f, 0.375f, 0.f);
 }
 
 void keyDownHandler(unsigned char key, int x, int y) {
@@ -196,4 +249,24 @@ void drawCursor(void) {
 	glVertex2i(gMousePosition.x, gMousePosition.y + 16);
 
 	glEnd();
+}
+
+void setOrthographic(int width, int height) {
+	glDisable(GL_DEPTH_TEST);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0.0, width, height, 0.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(0.375f, 0.375f, 0.f);
+}
+
+void setPerspective(int width, int height) {
+	glEnable(GL_DEPTH_TEST);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(60.0, (double)width / (double)height, 0.1, 1000.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluLookAt(0.0, 2.0, -2.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 }
